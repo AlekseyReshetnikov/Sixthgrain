@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2020
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grain", "Grain\Grain.csproj", "{1F6D25F4-D805-4D60-ABAE-3B4C212B8903}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grain.Tests", "Grain.Tests\Grain.Tests.csproj", "{DC47F242-7D1F-440B-8FD4-8E8EA42B9944}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F6D25F4-D805-4D60-ABAE-3B4C212B8903}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F6D25F4-D805-4D60-ABAE-3B4C212B8903}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F6D25F4-D805-4D60-ABAE-3B4C212B8903}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F6D25F4-D805-4D60-ABAE-3B4C212B8903}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC47F242-7D1F-440B-8FD4-8E8EA42B9944}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC47F242-7D1F-440B-8FD4-8E8EA42B9944}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC47F242-7D1F-440B-8FD4-8E8EA42B9944}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC47F242-7D1F-440B-8FD4-8E8EA42B9944}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CD88F1D6-B592-46BE-B1E7-D7873F04DF78}
+	EndGlobalSection
+EndGlobal
