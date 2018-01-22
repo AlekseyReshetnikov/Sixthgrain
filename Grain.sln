@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grain", "Grain\Grain.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grain.Tests", "Grain.Tests\Grain.Tests.csproj", "{DC47F242-7D1F-440B-8FD4-8E8EA42B9944}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grain.Models", "Grain.Models\Grain.Models.csproj", "{186DFFC4-7DA5-4CD5-B658-1CC795930C9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grain.ConsoleApp", "Grain.ConsoleApp\Grain.ConsoleApp.csproj", "{FBAA6955-FCEC-4ECA-B1E3-0E9560856DF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{DC47F242-7D1F-440B-8FD4-8E8EA42B9944}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC47F242-7D1F-440B-8FD4-8E8EA42B9944}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC47F242-7D1F-440B-8FD4-8E8EA42B9944}.Release|Any CPU.Build.0 = Release|Any CPU
+		{186DFFC4-7DA5-4CD5-B658-1CC795930C9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{186DFFC4-7DA5-4CD5-B658-1CC795930C9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{186DFFC4-7DA5-4CD5-B658-1CC795930C9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{186DFFC4-7DA5-4CD5-B658-1CC795930C9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBAA6955-FCEC-4ECA-B1E3-0E9560856DF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBAA6955-FCEC-4ECA-B1E3-0E9560856DF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBAA6955-FCEC-4ECA-B1E3-0E9560856DF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBAA6955-FCEC-4ECA-B1E3-0E9560856DF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
