@@ -1,0 +1,53 @@
+﻿@model Grain.Models.PivotFilter
+
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>Аналитика по фермам. </h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Выбор параметров</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label class="control-label col-md-2" for="ColId">Колонка</label>
+        <div class="col-md-10">
+            @Html.DropDownList("ColId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ColId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="RowId">Столбец</label>
+        <div class="col-md-10">
+            @Html.DropDownList("RowId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.RowId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="DataId">Данные</label>
+        <div class="col-md-10">
+            @Html.DropDownList("DataId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.DataId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Выбрать" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

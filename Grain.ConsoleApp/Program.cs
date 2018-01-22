@@ -14,6 +14,19 @@ namespace Grain.ConsoleApp
             using (var db = new GrainContext())
             {
                 db.InitData();
+                PivotShow Model = new PivotShow(db, 1, 2, 4);
+                foreach (var item in Model.Columns)
+                {
+                    Console.Write("<" + item.Name + ">");
+                }
+                Console.WriteLine();
+                foreach (var row in Model.Rows)
+                {
+                    Console.Write("<" + row.Name + ">");
+                    foreach (var d in row.Data)
+                    { Console.Write("<" + d.ToString("#.00") + ">"); }
+                    Console.WriteLine();
+                }
 
                 foreach (var R in db.Farms)
                 {

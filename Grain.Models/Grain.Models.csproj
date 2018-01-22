@@ -55,7 +55,10 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Agriсulture.cs" />
+    <Compile Include="Models\DataField.cs" />
     <Compile Include="Models\Farm.cs" />
+    <Compile Include="Models\PivotFilter.cs" />
+    <Compile Include="Models\PivotShow.cs" />
     <Compile Include="Models\Region.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
