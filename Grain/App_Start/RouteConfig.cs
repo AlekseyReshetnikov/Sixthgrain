@@ -16,7 +16,7 @@ namespace Grain
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Farms", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
