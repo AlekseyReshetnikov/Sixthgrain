@@ -21,18 +21,18 @@ namespace Grain.Models.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        FarmerName = c.String(),
+                        Name = c.String(nullable: false, maxLength: 100),
+                        FarmerName = c.String(nullable: false, maxLength: 100),
+                        RegionId = c.Int(nullable: false),
+                        AgricultureId = c.Int(nullable: false),
                         HarvestLastYear = c.Decimal(nullable: false, precision: 18, scale: 2),
                         Area = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        AgricultureId = c.Int(),
-                        RegionId = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Agricultures", t => t.AgricultureId)
-                .ForeignKey("dbo.Regions", t => t.RegionId)
-                .Index(t => t.AgricultureId)
-                .Index(t => t.RegionId);
+                .ForeignKey("dbo.Agricultures", t => t.AgricultureId, cascadeDelete: true)
+                .ForeignKey("dbo.Regions", t => t.RegionId, cascadeDelete: true)
+                .Index(t => t.RegionId)
+                .Index(t => t.AgricultureId);
             
             CreateTable(
                 "dbo.Regions",
@@ -49,8 +49,8 @@ namespace Grain.Models.Migrations
         {
             DropForeignKey("dbo.Farms", "RegionId", "dbo.Regions");
             DropForeignKey("dbo.Farms", "AgricultureId", "dbo.Agricultures");
-            DropIndex("dbo.Farms", new[] { "RegionId" });
             DropIndex("dbo.Farms", new[] { "AgricultureId" });
+            DropIndex("dbo.Farms", new[] { "RegionId" });
             DropTable("dbo.Regions");
             DropTable("dbo.Farms");
             DropTable("dbo.Agricultures");

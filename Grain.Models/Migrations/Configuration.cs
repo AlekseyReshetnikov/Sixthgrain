@@ -9,7 +9,7 @@ namespace Grain.Models.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(Grain.Models.GrainContext context)
@@ -18,7 +18,7 @@ namespace Grain.Models.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
-            context.InitData();
+            //context.InitData();
         }
     }
 }

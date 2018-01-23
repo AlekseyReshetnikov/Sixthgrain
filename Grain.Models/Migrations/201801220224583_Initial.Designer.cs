@@ -7,13 +7,13 @@ namespace Grain.Models.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Initial : IMigrationMetadata
+    public sealed partial class Initital : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initital));
         
         string IMigrationMetadata.Id
         {
-            get { return "201801220224583_Initial"; }
+            get { return "201801231417226_Initital"; }
         }
         
         string IMigrationMetadata.Source
