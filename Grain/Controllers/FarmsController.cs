@@ -13,13 +13,18 @@ namespace Grain.Controllers
 {
     public class FarmsController : Controller
     {
-        private GrainContext db = new GrainContext();
+        private IGrainRepository Repo;
+
+        public FarmsController(IGrainRepository repository)
+        {
+            this.Repo = repository;
+        }
 
         // GET: Farms
         public async Task<ActionResult> Index()
         {
-            var farms = db.Farms.Include(f => f.Agriculture).Include(f => f.Region);
-            return View(await farms.ToListAsync());
+            List<Farm> farms = await Repo.FarmsList();
+            return View(farms);
         }
 
         // GET: Farms/Details/5
@@ -29,7 +34,7 @@ namespace Grain.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Farm farm = await db.Farms.FindAsync(id);
+            var farm = Repo.Farms.Find(id);
             if (farm == null)
             {
                 return HttpNotFound();
@@ -40,8 +45,8 @@ namespace Grain.Controllers
         // GET: Farms/Create
         public ActionResult Create()
         {
-            ViewBag.AgricultureId = new SelectList(db.Agricultures, "Id", "Name");
-            ViewBag.RegionId = new SelectList(db.Regions, "Id", "Name");
+            ViewBag.AgricultureId = new SelectList(Repo.Agricultures, "Id", "Name");
+            ViewBag.RegionId = new SelectList(Repo.Regions, "Id", "Name");
             return View();
         }
 
@@ -54,13 +59,12 @@ namespace Grain.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Farms.Add(farm);
-                await db.SaveChangesAsync();
+                await Repo.SaveFarmAsync(farm);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AgricultureId = new SelectList(db.Agricultures, "Id", "Name", farm.AgricultureId);
-            ViewBag.RegionId = new SelectList(db.Regions, "Id", "Name", farm.RegionId);
+            ViewBag.AgricultureId = new SelectList(Repo.Agricultures, "Id", "Name", farm.AgricultureId);
+            ViewBag.RegionId = new SelectList(Repo.Regions, "Id", "Name", farm.RegionId);
             return View(farm);
         }
 
@@ -71,13 +75,13 @@ namespace Grain.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Farm farm = await db.Farms.FindAsync(id);
+            Farm farm = await Repo.FarmsFindAsync(id);
             if (farm == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.AgricultureId = new SelectList(db.Agricultures, "Id", "Name", farm.AgricultureId);
-            ViewBag.RegionId = new SelectList(db.Regions, "Id", "Name", farm.RegionId);
+            ViewBag.AgricultureId = new SelectList(Repo.Agricultures, "Id", "Name", farm.AgricultureId);
+            ViewBag.RegionId = new SelectList(Repo.Regions, "Id", "Name", farm.RegionId);
             return View(farm);
         }
 
@@ -90,12 +94,12 @@ namespace Grain.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(farm).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                Repo.SetEntryEntityState(farm, EntityState.Modified);
+                Repo.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AgricultureId = new SelectList(db.Agricultures, "Id", "Name", farm.AgricultureId);
-            ViewBag.RegionId = new SelectList(db.Regions, "Id", "Name", farm.RegionId);
+            ViewBag.AgricultureId = new SelectList(Repo.Agricultures, "Id", "Name", farm.AgricultureId);
+            ViewBag.RegionId = new SelectList(Repo.Regions, "Id", "Name", farm.RegionId);
             return View(farm);
         }
 
@@ -106,7 +110,7 @@ namespace Grain.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Farm farm = await db.Farms.FindAsync(id);
+            Farm farm = await Repo.FarmsFindAsync(id);
             if (farm == null)
             {
                 return HttpNotFound();
@@ -119,19 +123,11 @@ namespace Grain.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Farm farm = await db.Farms.FindAsync(id);
-            db.Farms.Remove(farm);
-            await db.SaveChangesAsync();
+            Farm farm = await Repo.FarmsFindAsync(id);
+            Repo.Farms.Remove(farm);
+            Repo.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

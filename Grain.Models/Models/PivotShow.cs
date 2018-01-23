@@ -9,10 +9,10 @@ namespace Grain.Models
 {
     public class PivotShow
     {
-        static public DataField[] headerFields = new DataField[] {
+        static public DataField[] HeaderFields { get; } = new DataField[] {
                 new DataField { Id = 1, Name = "Агрикультура", Field="AgricultureId" },
                 new DataField { Id = 2, Name = "Регион", Field="RegionId" } };
-        static public DataField[] dataFields = new DataField[] {
+        static public DataField[] DataFields { get; } = new DataField[] {
                 new DataField { Id = 3, Name = "Урожай в тоннах за прошлый год", Field="HarvestLastYear" },
                 new DataField { Id = 4, Name = "Площадь ферм", Field="Area" } };
 
@@ -24,15 +24,14 @@ namespace Grain.Models
         public PivotShow(GrainContext _db, int colId, int rowId, int dataId)
         {
             this.db = _db;
-            var col = headerFields[colId - 1];
-            var row = headerFields[rowId - 1];
-            var data = dataFields[dataId - headerFields.Length - 1];
+            var col = HeaderFields[colId - 1];
+            var row = HeaderFields[rowId - 1];
+            var data = DataFields[dataId - HeaderFields.Length - 1];
             string sql = string.Format("select {0} as ColId, {1} as RowId, convert(decimal(18,2), sum({2})) as data from Farms group by {0},{1}", col.Field, row.Field, data.Field);
-            var elements = db.Database.SqlQuery<PivotDataElement>(sql).ToList();
+            var dataElements = db.Database.SqlQuery<PivotDataElement>(sql).ToList();
 
-            var e = elements;
-            Columns = (from id in (from item in e select item.ColId).Distinct() select new PivotHeaderElement { Id = id }).ToList();
-            Rows = (from id in (from item in e select item.RowId).Distinct() select new PivotHeaderElement { Id = id }).ToList();
+            Columns = (from id in (from item in dataElements select item.ColId).Distinct() select new PivotHeaderElement { Id = id }).ToList();
+            Rows = (from id in (from item in dataElements select item.RowId).Distinct() select new PivotHeaderElement { Id = id }).ToList();
             FillHeader(ref Columns, colId);
             FillHeader(ref Rows, rowId);
 
@@ -46,7 +45,7 @@ namespace Grain.Models
                 for (int i = 0; i < ColumnsCount; i++) { item.Data[i] = 0; }
             }
             // Заполнить данные
-            foreach (var item in elements)
+            foreach (var item in dataElements)
             {
                 int c = dColumns[item.ColId].Ord;
                 dRows[item.RowId].Data[c] = item.Data;

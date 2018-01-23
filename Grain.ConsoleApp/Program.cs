@@ -13,7 +13,7 @@ namespace Grain.ConsoleApp
         {
             using (var db = new GrainContext())
             {
-                db.InitData();
+                // db.InitData();
                 PivotShow Model = new PivotShow(db, 1, 2, 4);
                 foreach (var item in Model.Columns)
                 {

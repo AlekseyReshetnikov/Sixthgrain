@@ -18,9 +18,9 @@ namespace Grain.Controllers
         {
   
             PivotFilter pivotFilter = new PivotFilter(1,2,3);
-            ViewBag.ColId = new SelectList(PivotShow.headerFields, "Id", "Name", pivotFilter.ColId);
-            ViewBag.RowId = new SelectList(PivotShow.headerFields, "Id", "Name", pivotFilter.RowId);
-            ViewBag.DataId = new SelectList(PivotShow.dataFields, "Id", "Name", pivotFilter.DataId);
+            ViewBag.ColId = new SelectList(PivotShow.HeaderFields, "Id", "Name", pivotFilter.ColId);
+            ViewBag.RowId = new SelectList(PivotShow.HeaderFields, "Id", "Name", pivotFilter.RowId);
+            ViewBag.DataId = new SelectList(PivotShow.DataFields, "Id", "Name", pivotFilter.DataId);
 
             return View();
         }
