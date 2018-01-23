@@ -17,6 +17,10 @@ namespace Grain.Models
 
         public IDbSet<Region> Regions => Db.Regions;
 
+        public IEnumerable<DataField> PivotHeaderFields => PivotContext.HeaderFields;
+
+        public IEnumerable<DataField> PivotDataFields => PivotContext.DataFields;
+
         public void Dispose()
         {
             Db.Dispose();
@@ -32,6 +36,12 @@ namespace Grain.Models
             var farms = Db.Farms.Include(f => f.Agriculture).Include(f => f.Region);
             var ret = await farms.ToListAsync();
             return ret;
+        }
+
+        public PivotShow GeneratePivotShowModel(int colId, int rowId, int dataId)
+        {
+            PivotContext c = new PivotContext();
+            return c.GeneratePivotShowModel(Db, colId, rowId, dataId);
         }
 
         public int SaveChanges() { return Db.SaveChanges(); }

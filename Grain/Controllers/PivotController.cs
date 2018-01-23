@@ -11,16 +11,22 @@ namespace Grain.Controllers
 {
     public class PivotController : Controller
     {
-        private GrainContext db = new GrainContext();
+
+        private IGrainRepository db;
+
+        public PivotController(IGrainRepository repository)
+        {
+            this.db = repository;
+        }
 
         // GET: Pivot
         public ActionResult Index()
         {
   
             PivotFilter pivotFilter = new PivotFilter(1,2,3);
-            ViewBag.ColId = new SelectList(PivotShow.HeaderFields, "Id", "Name", pivotFilter.ColId);
-            ViewBag.RowId = new SelectList(PivotShow.HeaderFields, "Id", "Name", pivotFilter.RowId);
-            ViewBag.DataId = new SelectList(PivotShow.DataFields, "Id", "Name", pivotFilter.DataId);
+            ViewBag.ColId = new SelectList(db.PivotHeaderFields, "Id", "Name", pivotFilter.ColId);
+            ViewBag.RowId = new SelectList(db.PivotHeaderFields, "Id", "Name", pivotFilter.RowId);
+            ViewBag.DataId = new SelectList(db.PivotDataFields, "Id", "Name", pivotFilter.DataId);
 
             return View();
         }
@@ -34,7 +40,7 @@ namespace Grain.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PivotShow pivotShow = new PivotShow(db,colId,rowId, dataId);
+            PivotShow pivotShow = db.GeneratePivotShowModel(colId,rowId, dataId);
 
             return View("Data", pivotShow);
         }

@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Contexts\GrainContext.cs" />
     <Compile Include="Contexts\GrainContextInitializer.cs" />
+    <Compile Include="Contexts\PivotContext.cs" />
     <Compile Include="Migrations\201801220224583_Initial.cs" />
     <Compile Include="Migrations\201801220224583_Initial.Designer.cs">
       <DependentUpon>201801220224583_Initial.cs</DependentUpon>
