@@ -22,7 +22,7 @@ namespace Grain.Models
         Task<Farm> FarmsFindAsync(int? id);
         Task<List<Farm>> FarmsList();
         Task<PivotView> GeneratePivotShowModel(int colId, int rowId, int dataId);
-        Task FarmRemoveAsync(int id);
+        Task<Farm> FarmRemoveAsync(int id);
         Task<Farm> FarmsFind(int? id);
     }
 }

@@ -123,3 +123,29 @@ h2 {
     border: 2px solid #ddd;
     background-color: #dff2fb;
 }
+
+.sg-notification {
+    color: white;
+    width: 250px;
+    height: 75px;
+    position: absolute;
+    top: 125px;
+    right: 15px;
+    border-radius: 5px;
+    text-align: center;
+    z-index: 9999;
+
+    &.success {
+        background-color: @navbar-color;
+    }
+
+    &.danger {
+        background-color: #eb6969;
+    }
+
+    span.notification-text {
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 75px;
+    }
+}

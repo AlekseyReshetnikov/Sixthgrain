@@ -232,6 +232,7 @@
     <Content Include="Theme\Site.less" />
     <Content Include="Views\Shared\ConfirmationDialog.cshtml" />
     <Content Include="Views\Farms\DeletePartial.cshtml" />
+    <Content Include="Views\Shared\Notifiсation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Grain.Models\Grain.Models.csproj">

@@ -137,8 +137,15 @@ namespace Grain.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            await Repo.FarmRemoveAsync(id);
-            return RedirectToAction("Index");
+            Farm farm = await Repo.FarmRemoveAsync(id);
+            if (farm == null)
+            {
+                TempData["NotificationError"] = "Ошибка при удалении";
+            } else
+            {
+                TempData["NotificationSuccess"] = string.Format("Ферма {0} удалена",farm.Name);
+            }
+            return View(farm);
         }
 
     }

@@ -38,11 +38,15 @@ namespace Grain.Models
             return ret;
         }
 
-        public async Task FarmRemoveAsync(int id)
+        public async Task<Farm> FarmRemoveAsync(int id)
         {
             Farm farm = await Db.Farms.FindAsync(id);
-            Db.Farms.Remove(farm);
-            Db.SaveChanges();
+            if (farm != null)
+            {
+                Db.Farms.Remove(farm);
+                Db.SaveChanges();
+            }
+            return farm;
         }
 
         public Task<PivotView> GeneratePivotShowModel(int colId, int rowId, int dataId)

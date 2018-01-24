@@ -10,17 +10,16 @@ var farms = function () {
 
         $.post(form.attr('action'), data).done(function() {
             setTimeout(window.myTools.CreateNotification("success", "Ферма удалена", 5000), 1000);
-
             window.location.reload();
         });
     }
 
     var _addDeleteHandlers = function () {
         $("[data-type='delete']").on("click", function () {
-
+            
             var $farm = $(this).closest(".farm-data-item");
             var farmId = $farm.data("farmId");
-            var action = "\Farms\DeletePartial\" + farmId;
+            var action = '/Farms/DeletePartial/' + farmId;
             $.get(action, function (data) {
                 $('#dialogContent').html(data);
                 $("#confirm-delete").modal("show");

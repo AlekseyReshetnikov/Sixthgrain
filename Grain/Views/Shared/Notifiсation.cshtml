@@ -1,0 +1,30 @@
+﻿@{
+    string notificationType = null;
+    string notificationMessage = null;
+
+    if (TempData.ContainsKey("NotificationSuccess"))
+    {
+        notificationType = "success";
+        notificationMessage = TempData["NotificationSuccess"].ToString();
+    }
+
+    if (TempData.ContainsKey("NotificationError"))
+    {
+        notificationType = "danger";
+        notificationMessage = TempData["NotificationError"].ToString();
+    }
+}
+<div class="sg-notification">
+    <span class="notification-text"></span>
+</div>
+
+@if (notificationType != null && notificationMessage != null)
+{
+    <script>
+        $(document).ready(function () {
+            setTimeout(function () {
+                window.sgTools.CreateNotification('@notificationType', '@notificationMessage', 5000);
+            }, 500);
+        });
+    </script>
+}
