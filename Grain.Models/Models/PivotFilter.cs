@@ -24,4 +24,6 @@ namespace Grain.Models
         [Display(Name = "Данные")]
         public int DataId { get; set; }
     }
+
 }
+

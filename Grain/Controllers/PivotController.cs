@@ -20,6 +20,7 @@ namespace Grain.Controllers
             this.Repo = repository;
         }
 
+
         // GET: Pivot
         public ActionResult Index()
         {
@@ -39,7 +40,12 @@ namespace Grain.Controllers
         {
             if (((rowId<1) || (rowId > 2)) || ((colId < 1) || (colId > 2)) || ((dataId < 3) || (dataId > 4)) || (colId==rowId) )
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ModelState.AddModelError("rowId", "Поля колонок и столбцов должны отличаться");
+                ViewBag.Message = "Запрос не прошел валидацию";
+                ViewBag.ColId = new SelectList(Repo.PivotHeaderFields, "Id", "Name");
+                ViewBag.RowId = new SelectList(Repo.PivotHeaderFields, "Id", "Name");
+                ViewBag.DataId = new SelectList(Repo.PivotDataFields, "Id", "Name");
+                return View();
             }
             PivotView pivotShow = await Repo.GeneratePivotShowModel(colId,rowId, dataId);
 

@@ -76,26 +76,14 @@ namespace Grain.Models
             }
         }
 
-        static async Task<String> GetAgricultureName(int x)
-        {
-            var a = await db.Agricultures.FindAsync(x); return a.Name;
-        }
-
-        static async Task<String> GetRegionName(int x)
-        {
-            var a = await db.Regions.FindAsync(x); return a.Name;
-        }
-
         static private void FillHeader(ref List<PivotHeaderElement> fieldValues, int field)
         {
-            Func<int, Task<String>> get;
-            if (field == 1) { get = x => GetAgricultureName(x); }
-            else { get = x => GetAgricultureName(x); }
+            Func<int, String> get;
+            if (field == 1) { get = x => db.Agricultures.Find(x).Name; }
+            else { get = x => db.Regions.Find(x).Name; }
             foreach (var item in fieldValues)
             {
-                Task<String> t = get(item.Id);
-                t.Wait(); // К сожалению не работает в нескольких потоках!
-                item.Name = t.Result;
+                item.Name = get(item.Id);
             }
             fieldValues = fieldValues.OrderBy(x => x.Name).ToList();
             int i = 0;
