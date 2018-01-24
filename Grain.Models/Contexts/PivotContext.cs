@@ -19,10 +19,10 @@ namespace Grain.Models
 
         static private GrainContext db;
 
-        static public PivotShow GeneratePivotShowModel(GrainContext _db, int colId, int rowId, int dataId)
+        static public async Task<PivotView> GeneratePivotViewModel(GrainContext _db, int colId, int rowId, int dataId)
         {
-            List<PivotHeaderElement> Columns;
-            List<PivotHeaderElement> Rows;
+            List<PivotHeaderElement> Columns=null;
+            List<PivotHeaderElement> Rows = null;
             int ColumnsCount;
 
             db = _db;
@@ -32,15 +32,25 @@ namespace Grain.Models
                 var row = HeaderFields[rowId - 1];
                 var data = DataFields[dataId - HeaderFields.Length - 1];
                 string sql = string.Format("select {0} as ColId, {1} as RowId, convert(decimal(18,2), sum({2})) as data from Farms group by {0},{1}", col.Field, row.Field, data.Field);
-                var dataElements = db.Database.SqlQuery<PivotDataElement>(sql).ToList();
+                var dataElements = await db.Database.SqlQuery<PivotDataElement>(sql).ToListAsync();
 
-                Columns = (from id in (from item in dataElements select item.ColId).Distinct() select new PivotHeaderElement { Id = id }).ToList();
-                Rows = (from id in (from item in dataElements select item.RowId).Distinct() select new PivotHeaderElement { Id = id }).ToList();
+                Dictionary<int,PivotHeaderElement> dColumns = null;
+                Dictionary<int, PivotHeaderElement> dRows = null;
+                Task t1 = Task.Run(()=>
+                {
+                    Columns = (from id in (from item in dataElements select item.ColId).Distinct() select new PivotHeaderElement { Id = id }).ToList();
+                });
+                Task t2 = Task.Run(() => {
+                    Rows = (from id in (from item in dataElements select item.RowId).Distinct() select new PivotHeaderElement { Id = id }).ToList();
+                });
+                await t1;
+                await t2;
+                // Попытка асинхронного обращения к базе данных из двух потоков привела к ошибке
                 FillHeader(ref Columns, colId);
+                dColumns = Columns.ToDictionary(x => x.Id);
                 FillHeader(ref Rows, rowId);
+                dRows = Rows.ToDictionary(x => x.Id);
 
-                var dColumns = Columns.ToDictionary(x => x.Id);
-                var dRows = Rows.ToDictionary(x => x.Id);
                 ColumnsCount = Columns.Count;
                 // Создать под данные место
                 foreach (var item in Rows)
@@ -54,11 +64,11 @@ namespace Grain.Models
                     int c = dColumns[item.ColId].Ord;
                     dRows[item.RowId].Data[c] = item.Data;
                 }
-                PivotShow pivotShow = new Models.PivotShow();
-                pivotShow.Columns = Columns;
-                pivotShow.ColumnsCount = ColumnsCount;
-                pivotShow.Rows = Rows;
-                return pivotShow;
+                PivotView pivotView = new Models.PivotView();
+                pivotView.Columns = Columns;
+                pivotView.ColumnsCount = ColumnsCount;
+                pivotView.Rows = Rows;
+                return pivotView;
             }
             finally
             {
@@ -66,14 +76,26 @@ namespace Grain.Models
             }
         }
 
+        static async Task<String> GetAgricultureName(int x)
+        {
+            var a = await db.Agricultures.FindAsync(x); return a.Name;
+        }
+
+        static async Task<String> GetRegionName(int x)
+        {
+            var a = await db.Regions.FindAsync(x); return a.Name;
+        }
+
         static private void FillHeader(ref List<PivotHeaderElement> fieldValues, int field)
         {
-            Func<int, string> get;
-            if (field == 1) { get = x => db.Agricultures.Find(x).Name; }
-            else { get = x => db.Regions.Find(x).Name; }
+            Func<int, Task<String>> get;
+            if (field == 1) { get = x => GetAgricultureName(x); }
+            else { get = x => GetAgricultureName(x); }
             foreach (var item in fieldValues)
             {
-                item.Name = get(item.Id);
+                Task<String> t = get(item.Id);
+                t.Wait(); // К сожалению не работает в нескольких потоках!
+                item.Name = t.Result;
             }
             fieldValues = fieldValues.OrderBy(x => x.Name).ToList();
             int i = 0;

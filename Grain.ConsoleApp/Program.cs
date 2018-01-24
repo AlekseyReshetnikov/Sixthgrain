@@ -14,7 +14,14 @@ namespace Grain.ConsoleApp
             using (var db = new GrainContext())
             {
                 // db.InitData();
-                PivotShow Model = PivotContext.GeneratePivotShowModel(db, 1, 2, 4);
+                Console.Write("0");
+                string s = db.Agricultures.Find(1).Name;
+                s = db.Regions.Find(1).Name;
+                Console.Write("1");
+                Task<PivotView> TaskModel = PivotContext.GeneratePivotViewModel(db, 1, 2, 4);
+                TaskModel.Wait();
+                Console.Write("2");
+                PivotView Model = TaskModel.Result;
                 foreach (var item in Model.Columns)
                 {
                     Console.Write("<" + item.Name + ">");

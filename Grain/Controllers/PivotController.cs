@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Grain.Models;
@@ -34,13 +35,13 @@ namespace Grain.Controllers
         // GET: Pivot/Details/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(int colId, int rowId, int dataId)
+        public async Task<ActionResult> Index(int colId, int rowId, int dataId)
         {
             if (((rowId<1) || (rowId > 2)) || ((colId < 1) || (colId > 2)) || ((dataId < 3) || (dataId > 4)) || (colId==rowId) )
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PivotShow pivotShow = Repo.GeneratePivotShowModel(colId,rowId, dataId);
+            PivotView pivotShow = await Repo.GeneratePivotShowModel(colId,rowId, dataId);
 
             return View("Data", pivotShow);
         }

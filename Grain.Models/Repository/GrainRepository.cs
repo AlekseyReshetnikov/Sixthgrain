@@ -11,11 +11,11 @@ namespace Grain.Models
     {
         private GrainContext Db = new GrainContext();
 
-        public IDbSet<Farm> Farms => Db.Farms;
+        public IEnumerable<Farm> Farms => Db.Farms;
 
-        public IDbSet<Agriculture> Agricultures => Db.Agricultures;
+        public IEnumerable<Agriculture> Agricultures => Db.Agricultures;
 
-        public IDbSet<Region> Regions => Db.Regions;
+        public IEnumerable<Region> Regions => Db.Regions;
 
         public IEnumerable<DataField> PivotHeaderFields => PivotContext.HeaderFields;
 
@@ -38,9 +38,16 @@ namespace Grain.Models
             return ret;
         }
 
-        public PivotShow GeneratePivotShowModel(int colId, int rowId, int dataId)
+        public async Task FarmRemoveAsync(int id)
         {
-            return PivotContext.GeneratePivotShowModel(Db, colId, rowId, dataId);
+            Farm farm = await Db.Farms.FindAsync(id);
+            Db.Farms.Remove(farm);
+            Db.SaveChanges();
+        }
+
+        public Task<PivotView> GeneratePivotShowModel(int colId, int rowId, int dataId)
+        {
+            return PivotContext.GeneratePivotViewModel(Db, colId, rowId, dataId);
         }
 
         public int SaveChanges() { return Db.SaveChanges(); }
@@ -54,6 +61,11 @@ namespace Grain.Models
         public void SetEntryEntityState<TEntity>(TEntity entity, EntityState State) where TEntity : class
         {
             Db.Entry(entity).State = State;
+        }
+
+        public async Task<Farm> FarmsFind(int? id)
+        {
+            return await Db.Farms.FindAsync(id);
         }
     }
 }

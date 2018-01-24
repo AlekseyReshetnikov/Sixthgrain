@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Grain.Models
 {
 
-    public class PivotShow
+    public class PivotView
     {
         public List<PivotHeaderElement> Columns;
         public List<PivotHeaderElement> Rows;

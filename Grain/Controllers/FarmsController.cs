@@ -34,7 +34,7 @@ namespace Grain.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var farm = Repo.Farms.Find(id);
+            var farm = await Repo.FarmsFind(id);
             if (farm == null)
             {
                 return HttpNotFound();
@@ -123,9 +123,7 @@ namespace Grain.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Farm farm = await Repo.FarmsFindAsync(id);
-            Repo.Farms.Remove(farm);
-            Repo.SaveChanges();
+            await Repo.FarmRemoveAsync(id);
             return RedirectToAction("Index");
         }
 

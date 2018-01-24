@@ -10,9 +10,9 @@ namespace Grain.Models
 {
     public interface IGrainRepository
     {
-        IDbSet<Farm> Farms { get; }
-        IDbSet<Agriculture> Agricultures { get; }
-        IDbSet<Region> Regions { get; }
+        IEnumerable<Farm> Farms { get; }
+        IEnumerable<Agriculture> Agricultures { get; }
+        IEnumerable<Region> Regions { get; }
         IEnumerable<DataField> PivotHeaderFields { get;}
         IEnumerable<DataField> PivotDataFields { get; }
 
@@ -21,6 +21,8 @@ namespace Grain.Models
         Task SaveFarmAsync(Farm farm);
         Task<Farm> FarmsFindAsync(int? id);
         Task<List<Farm>> FarmsList();
-        PivotShow GeneratePivotShowModel(int colId, int rowId, int dataId);
+        Task<PivotView> GeneratePivotShowModel(int colId, int rowId, int dataId);
+        Task FarmRemoveAsync(int id);
+        Task<Farm> FarmsFind(int? id);
     }
 }
