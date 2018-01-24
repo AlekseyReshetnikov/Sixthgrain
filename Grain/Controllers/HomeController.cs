@@ -15,14 +15,14 @@ namespace Grain.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Это тестовое задание.";
+            ViewBag.Message = "Это тестовое задание";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Контакты.";
+            ViewBag.Message = "Контакты";
 
             return View();
         }

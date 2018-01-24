@@ -27,9 +27,9 @@
         @foreach (var row in Model.Rows)
     {
         <tr>
-            <td>
+            <th>
                 @Html.DisplayFor(modelItem => row.Name)
-            </td>
+            </th>
             @foreach (var d in row.Data)
             {
         <td class="text-right">

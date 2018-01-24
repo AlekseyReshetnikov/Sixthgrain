@@ -35,7 +35,7 @@ namespace Grain.Tests.Controllers
             ViewResult result = controller.About() as ViewResult;
 
             // Assert
-            Assert.AreEqual("Это тестовое задание.", result.ViewBag.Message);
+            Assert.AreEqual("Это тестовое задание", result.ViewBag.Message);
         }
 
         [TestMethod]
