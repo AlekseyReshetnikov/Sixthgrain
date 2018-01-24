@@ -60,6 +60,8 @@ namespace Grain.Controllers
             if (ModelState.IsValid)
             {
                 await Repo.SaveFarmAsync(farm);
+                TempData["NotificationSuccess"] = string.Format("Ферма {0} добавлена", farm.Name);
+
                 return RedirectToAction("Index");
             }
 
@@ -145,7 +147,7 @@ namespace Grain.Controllers
             {
                 TempData["NotificationSuccess"] = string.Format("Ферма {0} удалена",farm.Name);
             }
-            return View(farm);
+            return Redirect("Index");
         }
 
     }
