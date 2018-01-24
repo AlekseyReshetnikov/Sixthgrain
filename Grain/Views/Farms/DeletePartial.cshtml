@@ -1,0 +1,56 @@
+﻿@model Grain.Models.Farm
+
+<h4>Ферму "<span>@Html.DisplayFor(model => model.Name) </span>"</h4>
+<hr />
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.Name)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Name)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.FarmerName)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.FarmerName)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Agriculture.Name)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Agriculture.Name)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Region.Name)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Region.Name)
+    </dd>
+
+
+
+    <dt>
+        @Html.DisplayNameFor(model => model.HarvestLastYear)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.HarvestLastYear)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Area)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Area)
+    </dd>
+
+</dl>

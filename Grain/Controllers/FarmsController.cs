@@ -118,6 +118,20 @@ namespace Grain.Controllers
             return View(farm);
         }
 
+        public async Task<ActionResult> DeletePartial(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Farm farm = await Repo.FarmsFindAsync(id);
+            if (farm == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView(farm);
+        }
+
         // POST: Farms/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

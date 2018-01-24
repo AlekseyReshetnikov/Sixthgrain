@@ -166,6 +166,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\MyHtmlHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -182,6 +183,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -189,6 +191,10 @@
     <Content Include="package.json" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-3.2.1-vsdoc.js" />
+    <Content Include="Scripts\farmList.js" />
+    <Content Include="Scripts\farmList.min.js">
+      <DependentUpon>farmList.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.js" />
@@ -196,6 +202,8 @@
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\my-farmList.js" />
+    <Content Include="Scripts\my-tools.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Web.config">
@@ -222,6 +230,8 @@
     <Content Include="Views\Pivot\Index.cshtml" />
     <Content Include="Views\Pivot\Data.cshtml" />
     <Content Include="Theme\Site.less" />
+    <Content Include="Views\Shared\ConfirmationDialog.cshtml" />
+    <Content Include="Views\Farms\DeletePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Grain.Models\Grain.Models.csproj">
