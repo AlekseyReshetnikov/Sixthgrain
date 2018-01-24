@@ -40,8 +40,7 @@ namespace Grain.Models
 
         public PivotShow GeneratePivotShowModel(int colId, int rowId, int dataId)
         {
-            PivotContext c = new PivotContext();
-            return c.GeneratePivotShowModel(Db, colId, rowId, dataId);
+            return PivotContext.GeneratePivotShowModel(Db, colId, rowId, dataId);
         }
 
         public int SaveChanges() { return Db.SaveChanges(); }

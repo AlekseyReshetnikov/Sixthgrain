@@ -14,7 +14,7 @@ namespace Grain.ConsoleApp
             using (var db = new GrainContext())
             {
                 // db.InitData();
-                PivotShow Model = new PivotShow(db, 1, 2, 4);
+                PivotShow Model = PivotContext.GeneratePivotShowModel(db, 1, 2, 4);
                 foreach (var item in Model.Columns)
                 {
                     Console.Write("<" + item.Name + ">");
